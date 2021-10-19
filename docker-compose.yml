@@ -1,0 +1,18 @@
+services:
+  php:
+    build:
+      context: .
+      dockerfile: ./php.Dockerfile
+    user: ${UID}:${UID}
+    volumes:
+      - ./public:/var/www
+  nginx:
+    build:
+      context: .
+      dockerfile: ./nginx.Dockerfile
+    ports:
+      - 80:80
+    depends_on:
+      - php
+    volumes:
+      - ./public:/var/www
